@@ -1,29 +1,32 @@
 pipeline {
     agent any
     
-    tools {
-        // Configure JDK in Jenkins Global Tool Configuration
-        jdk 'JDK17'
+    environment {
+        PATH = "${JAVA_HOME}/bin:${PATH}"
     }
     
     stages {
         stage('Checkout') {
             steps {
-                // Get code from GitHub repository
                 checkout scm
+            }
+        }
+        
+        stage('Verify Java') {
+            steps {
+                sh 'echo $JAVA_HOME'
+                sh 'java -version'
             }
         }
         
         stage('Compile') {
             steps {
-                // Compile Java program
                 sh 'javac TimeStamp.java'
             }
         }
         
         stage('Run') {
             steps {
-                // Run the program and capture output
                 sh 'java TimeStamp'
             }
         }
