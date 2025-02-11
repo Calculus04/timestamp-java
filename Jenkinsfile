@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        PATH = "${JAVA_HOME}/bin:${PATH}"
+        PATH = "${JAVA_HOME}\\bin;${PATH}"
     }
     
     stages {
@@ -14,20 +14,20 @@ pipeline {
         
         stage('Verify Java') {
             steps {
-                sh 'echo $JAVA_HOME'
-                sh 'java -version'
+                bat 'echo %JAVA_HOME%'
+                bat 'java -version'
             }
         }
         
         stage('Compile') {
             steps {
-                sh 'javac TimeStamp.java'
+                bat 'javac TimeStamp.java'
             }
         }
         
         stage('Run') {
             steps {
-                sh 'java TimeStamp'
+                bat 'java TimeStamp'
             }
         }
     }
